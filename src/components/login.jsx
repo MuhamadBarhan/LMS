@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "../components/styles/login.css";
+import "../components/styles/Login.css";
 import logo from "../assets/icons/logo.png";
 import signup from "../assets/images/sign-up.png";
 import ggl_logo from "../assets/icons/google.png";
