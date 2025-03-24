@@ -1,0 +1,57 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 40px;
+  }
+  .footer-content .logo{
+    width: 330px;
+  }
+
+  .footer-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .footer h2 {
+    color: #1abc9c;
+  }
+  
+  .newsletter input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    margin-right: 10px;
+  }
+  
+  .newsletter button {
+    background: #1abc9c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .footer-links {
+    margin-top: 20px;
+  }
+  
+  .footer-links a {
+    color: #bbb;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  @media (max-width: 768px) {
+    .newsletter input {
+      width: 70%;
+      margin-bottom: 10px;
+    }
+  }
+  
