@@ -1,0 +1,74 @@
+.profile-card {
+  background: linear-gradient(135deg, #5c9ded, #4b83d5);
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+/* Profile Avatar - Left */
+.profile-avatar {
+  width: 80px; /* Bigger size */
+  height: 80px;
+  border-radius: 50%;
+  background: #2d6ac6;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Profile Details - Just Next to Avatar */
+.profile-details {
+  margin-left: 15px; /* Ensure it's right next to the avatar */
+}
+
+/* Profile Name */
+.profile-name {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+/* Profile Role */
+.profile-role {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* Profile Info - Right-aligned */
+.profile-info {
+  margin-left: auto; /* Pushes to the right-most end */
+}
+
+.profile-info p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .profile-card {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .profile-avatar {
+      margin: 10px auto;
+  }
+
+  .profile-details {
+      margin-left: 0;
+  }
+
+  .profile-info {
+      text-align: center;
+      margin-top: 10px;
+  }
+}

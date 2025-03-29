@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
-import Header from "../Header";
+import React, { useEffect, useState } from "react";
 import Footer from "../Footer";
 import YourProgressCard from "../YourProgressCard";
 import ExploreCard from "../ExploreCard";
 import "../styles/courses.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Navbar from "../Navbar";
 
 const Courses = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   useEffect(() => {
     AOS.init({ duration: 1000, easing: "ease-in-out", once: true }); 
   }, []);
 
   return (
     <>
-      <Header />
+      <Navbar isLoggedIn={isLoggedIn}/>
       <div className="courses-container">
         <h2 data-aos="fade-down">Your Progress</h2>
         <div className="cards-row" data-aos="fade-up">

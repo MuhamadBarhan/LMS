@@ -18,8 +18,8 @@ const YourProgressCard = () => {
           </div>
         </div>
         <p className="lesson">7. Workflow on GitHub</p>
-        <p className="progress">Course 7 of 10 Completed</p>
-        <div className="progress-bar">
+        <p className="progressCourse">Course 7 of 10 Completed</p>
+        <div className="progress-barcss">
           <div className="progress-fill" style={{ width: "70%" }}></div>
         </div>
       </div>

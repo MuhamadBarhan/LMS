@@ -1,0 +1,49 @@
+.certification-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    padding: 15px;
+  }
+  .customList{
+    margin-top: 15px;
+  }
+  
+  .certification-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .progress {
+    height: 5px;
+    border-radius: 5px;
+  }
+  
+  .progress-bar {
+    background-color: #2a98a5 !important; /* Custom blue-green shade */
+  }
+  
+  .completion-text {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .action-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .action-icons span {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .action-icons span svg {
+    margin-right: 5px;
+    color: #2a98a5;
+  }
+  

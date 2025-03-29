@@ -50,13 +50,13 @@
     text-align: left;
   }
   
-  .progress {
+  .progressCourse {
     font-size: 12px;
     color: #777;
     text-align: left;
   }
   
-  .progress-bar {
+  .progress-barcss {
     background: #e0e0e0;
     border-radius: 5px;
     height: 6px;

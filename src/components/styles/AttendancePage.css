@@ -1,0 +1,21 @@
+.total{
+  display: flex;
+  flex-direction: column;
+}
+.tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .tabs span {
+    cursor: pointer;
+  }
+  
+  .tabs .active {
+    border-bottom: 2px solid #4b83d5;
+    font-weight: bold;
+  }
+  

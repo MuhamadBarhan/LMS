@@ -1,0 +1,7 @@
+@media (max-width: 576px) {
+    .nav-tabs .nav-link {
+      padding: 5px; /* Reduce padding */
+      font-size: 12px; /* Reduce font size */
+    }
+  }
+  

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
@@ -8,66 +8,61 @@ import ggl_logo from "../assets/icons/google.png";
 import linkedIn_logo from "../assets/icons/linkedin.png";
 import logo from "../assets/icons/logo.png";
 import "../components/styles/signUp.css";
-import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS with a duration of 1 second
+    AOS.init({ duration: 1000 });
   }, []);
 
   const navigate = useNavigate();
 
   return (
-    <>
-      <header>
-        <img src={logo} alt="SkillWave Logo" className="logo" data-aos="fade-down" />
+    <div className="container py-3">
+      <header className="text-center py-3 logoSec">
+        <img src={logo} alt="SkillWave Logo" className="logo" />
       </header>
-
-      <div className="signup-container">
-        <div className="left-section" data-aos="fade-right">
-          <img src={signup} alt="Sign Up Illustration" />
+      <div className="row align-items-center justify-content-center">
+        <div className="col-md-6 text-center" data-aos="fade-right">
+          <img src={signup} alt="Sign Up Illustration" className="img-fluid" />
         </div>
-
-        <div className="right-section" id="right-section" data-aos="fade-left">
-          <h2 data-aos="zoom-in">
-            Begin Your Journey With{" "}
-            <span className="brand">
-              Skill<span className="wave">Wave</span>
-            </span>
+        <div className="col-md-6 p-4 shadow rounded bg-white" data-aos="fade-left">
+          <h2 className="text-left" data-aos="zoom-in">
+            Begin Your Journey With SkillWave
           </h2>
-
-          <button className="google-btn" data-aos="fade-up">
-            <img src={ggl_logo} alt="Google" /> Sign Up with Google
+          <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-3" data-aos="fade-left">
+            <img src={ggl_logo} alt="Google" className="me-2" width="20" /> Sign Up with Google
           </button>
-          <button className="linkedin-btn" data-aos="fade-up" data-aos-delay="200">
-            <img src={linkedIn_logo} alt="LinkedIn" /> Sign Up with LinkedIn
+          <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-2" data-aos="fade-left" data-aos-delay="200">
+            <img src={linkedIn_logo} alt="LinkedIn" className="me-2" width="20" /> Sign Up with LinkedIn
           </button>
-
-          <p className="or-divider" data-aos="flip-up">OR</p>
-
-          <form className="signup-form">
-            <div className="input-field" data-aos="fade-up">
-              <FaUser className="icon" />
-              <input type="text" placeholder="Enter Your Full Name" />
+          <p className="text-center fw-bold my-3" data-aos="flip-up">OR</p>
+          <form>
+            <div className="input-group mb-3" data-aos="fade-left">
+              <span className="input-group-text"><FaUser /></span>
+              <input type="text" className="form-control" placeholder="Enter Your Full Name" />
             </div>
-            <div className="input-field" data-aos="fade-up" data-aos-delay="200">
-              <FaEnvelope className="icon" />
-              <input type="email" placeholder="Enter Your Mail or Phone Number" />
+            <div className="input-group mb-3" data-aos="fade-left" data-aos-delay="200">
+              <span className="input-group-text"><FaEnvelope /></span>
+              <input type="email" className="form-control" placeholder="Enter Your Mail or Phone Number" />
             </div>
-            <div className="input-field" data-aos="fade-up" data-aos-delay="300">
-              <FaLock className="icon" />
-              <input type="password" placeholder="Enter Your Password" />
+            <div className="input-group mb-3" data-aos="fade-left" data-aos-delay="300">
+              <span className="input-group-text"><FaLock /></span>
+              <input type="password" className="form-control" id="pass" placeholder="Enter Your Password" />
             </div>
-
-            <div className="remember-me" data-aos="fade-up">
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">Remember me</label>
+            <div className="input-group mb-3" data-aos="fade-left" data-aos-delay="300">
+              <span className="input-group-text"><FaLock /></span>
+              <input type="password" className="form-control" id="confirmPass" placeholder="Re-Enter Your Password" />
             </div>
-            <button type="submit" className="signup-btn" onClick={() => navigate("/courses")} data-aos="zoom-in">Sign Up</button>
+            <div className="form-check" data-aos="fade-left">
+              <input className="form-check-input" type="checkbox" id="remember" />
+              <label className="form-check-label" htmlFor="remember">Remember me</label>
+            </div>
+            <button type="submit" className="btn btn-success w-100 mt-3" onClick={() => navigate("/courses")}>Sign Up</button>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

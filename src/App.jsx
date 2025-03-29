@@ -7,6 +7,12 @@ import SignUp from "./components/signup";
 import Login from "./components/login";
 import Home from './components/pages/Home';
 import Courses from "./components/pages/Courses";
+import AttendancePage from "./components/pages/AttendancePage";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import Certificates from "./components/Certificates"
+import Assessments from "./components/Assessments";
+import Profile from "./components/pages/Profile"
 
 function App() {
   useEffect(() => {
@@ -22,6 +28,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/attendance" element={<AttendancePage />} />
+        <Route path="/certificate" element={<Certificates />} />
+        <Route path="/assessments" element={<Assessments />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
     </>
