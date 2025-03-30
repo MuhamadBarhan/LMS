@@ -45,6 +45,10 @@ const Login = () => {
               <img src={linkedIn_logo} alt="LinkedIn" className="me-2" style={{ width: "20px" }} />
               Login with LinkedIn
             </button>
+            <button className="btn btn-light w-100 my-2 d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="200">
+              <img src={linkedIn_logo} alt="GitHub" className="me-2" style={{ width: "20px" }} />
+              Login with GitHub
+            </button>
 
             {/* Divider */}
             <div className="text-center my-3 text-muted" data-aos="flip-up">OR</div>

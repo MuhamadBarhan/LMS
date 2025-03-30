@@ -36,6 +36,9 @@ const SignUp = () => {
           <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-2" data-aos="fade-left" data-aos-delay="200">
             <img src={linkedIn_logo} alt="LinkedIn" className="me-2" width="20" /> Sign Up with LinkedIn
           </button>
+          <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-2" data-aos="fade-left" data-aos-delay="200">
+            <img src={linkedIn_logo} alt="GitHub" className="me-2" width="20" /> Sign Up with GitHub
+          </button>
           <p className="text-center fw-bold my-3" data-aos="flip-up">OR</p>
           <form>
             <div className="input-group mb-3" data-aos="fade-left">
