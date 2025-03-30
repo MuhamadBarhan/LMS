@@ -43,7 +43,7 @@ const Navbar = (props) => {
                     {/* Add My Profile and Logout inside the menu on mobile */}
                     {isMobile && isLoggedIn && (
                         <>
-                            <li><a href="/profile" onClick={()=>navigate("/profile")}>My Profile</a></li>
+                            <li><a href="#" onClick={()=>navigate("/profile")}>My Profile</a></li>
                             <li><a href="#" onClick={handleLogout}>Logout</a></li>
                         </>
                     )}
