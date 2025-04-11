@@ -25,6 +25,7 @@ body {
   margin-right: 10px;
 }
 
+
 @media (max-width: 768px) {
   .logo {
     width: 100px; /* Reduce logo size on mobile */

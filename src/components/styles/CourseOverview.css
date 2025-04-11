@@ -1,0 +1,43 @@
+.courseoverviewcontainer {
+  overflow-x: hidden;
+}
+
+.content-scroll {
+  overflow-y: visible;
+}
+
+.card img {
+  border: 1px solid #ddd;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #f8f9fa;
+}
+.badge.bg-success-subtle {
+  background-color: #d1f2df;
+  color: #137547;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+.sticky-top {
+  position: sticky;
+  top: 80px; /* Adjust to match your navbar height */
+  z-index: 1; /* Optional: Keeps it above other content if needed */
+}
+
+/* Custom CSS only if you'd like a consistent icon circle size */
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}

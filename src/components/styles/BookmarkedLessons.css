@@ -1,0 +1,27 @@
+.icon-box {
+    background-color: #f0f2f5;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bookmark-icon {
+    font-size: 1.1rem;
+    color: #008080;
+  }
+  
+  .bookmark-card {
+    border: 1px solid #e5e5e5;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .bookmark-card:hover {
+    box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2);
+  }
+  .viewalltext{
+    color: #008080;
+  }
+  

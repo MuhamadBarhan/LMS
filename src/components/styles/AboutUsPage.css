@@ -1,0 +1,140 @@
+.about-section {
+    background: #1abc9c;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .angled-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+    background-color: white;
+    transform-origin: top left;
+    z-index: 1;
+  }
+  
+  .about-section .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .welcome-section {
+    background-color: #f8f9ff; /* subtle light background */
+  }
+  
+  .feature-card {
+    background-color: #f0f4ff;
+    border: 1px solid #dce3ff;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .emoji-circle {
+    background-color: #e8f0ff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .why-we-built {
+    background-color: #ffffff;
+  }
+  
+  .custom-image {
+    background-color: #e0e0e0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .custom-vision-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 1rem;
+    object-fit: cover;
+  }
+  .technologies-section {
+    background-color: #fff;
+  }
+  
+  .tech-card {
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .tech-title {
+    color: #1abc9c; /* Bootstrap primary blue */
+    font-weight: bold;
+  }
+  .stay-connected a {
+    border-radius: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    justify-content: center;
+  }
+  
+  /* Filled Button */
+  .filled-btn {
+    background-color: #1abc9c;
+    color: white;
+    border: 2px solid #1abc9c;
+  }
+  
+  .filled-btn:hover {
+    background-color: #16a085;
+    border-color: #16a085;
+  }
+  
+  /* Outline Buttons */
+  .outline-btn {
+    background-color: transparent;
+    color: #1abc9c;
+    border: 2px solid #1abc9c;
+  }
+  
+  .outline-btn:hover {
+    background-color: #1abc9c;
+    color: white;
+  }
+  .coding-journey-section {
+    background-color: #f0f7ff; /* light bluish bg */
+  }
+  
+  .get-started-btn {
+    background-color: #2563eb; /* Tailwind blue-600 */
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .get-started-btn:hover {
+    background-color: #1e4ed8; /* slightly darker blue */
+  }
+  
+  
+  
+    
+  

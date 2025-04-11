@@ -1,0 +1,53 @@
+.course-container {
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .course-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .course-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .course-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  
+  .progress-label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .tab-section {
+    margin-top: 2rem;
+  }
+  
+  .tab-button {
+    border-radius: 0;
+    font-weight: 500;
+  }
+  
+  .course-sidebar {
+    position: sticky;
+    top: 1rem;
+    background: white;
+    border-left: 1px solid #dee2e6;
+    padding-left: 1.5rem;
+  }
+  
+  .module-title {
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  .topic-done {
+    color: green;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+  

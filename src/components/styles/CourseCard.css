@@ -1,0 +1,27 @@
+.course-card {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+  
+  .placeholder-img {
+    height: 160px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .placeholder-img::before {
+    content: "📷";
+    font-size: 2rem;
+    opacity: 0.4;
+  }
+
+  button:focus {
+    box-shadow: none !important;
+  }
+  
+  .btn-light.active {
+    background-color: #00796b;
+    color: white;
+  }

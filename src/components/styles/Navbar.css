@@ -22,14 +22,17 @@
   nav {
     display: flex;
     align-items: center;
+    margin-top: 1rem;
     gap: 2rem; /* Ensure spacing between menu items and button */
 }
   
   nav ul {
     display: flex;
     justify-content: flex-start;
+    margin-top: 10px;
     list-style: none;
     gap: 2rem;
+    margin-right: 2rem;
   }
   
   nav ul li a {

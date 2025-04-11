@@ -1,0 +1,57 @@
+.btn-teal {
+    background-color: #008080;
+    color: white;
+  }
+  
+  .btn-outline-teal {
+    border: 1px solid #008080;
+    color: #008080;
+  }
+  
+  .bg-teal {
+    background-color: #008080 !important;
+  }
+  
+  .text-purple {
+    color: #6f42c1;
+  }
+  
+  .bg-purple-subtle {
+    background-color: #f2e8ff;
+  }
+  
+  .day-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+  }
+  
+  .day-circle.active {
+    background-color: #008080;
+    color: white;
+  }
+
+  .streak-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid teal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: teal;
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .streak-circle.active {
+    background-color: teal;
+    color: white;
+  }
+  
