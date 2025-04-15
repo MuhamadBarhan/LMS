@@ -24,26 +24,18 @@ import CourseDetailsPage from "./components/pages/CourseDetailsPage";
 import EnrolledCoursePage from "./components/pages/EnrolledCoursePage";
 import AboutUsPage from "./components/pages/AboutUsPage";
 import ExploreMorePage from "./components/pages/ExploreMorePage";
+import QuizPathway from "./components/QuizPathway";
+import ExploreMoreMain from "./components/pages/ExploreMoreMain";
+import ViewPathway from "./components/pages/ViewPathway";
+import CourseLearningPage from "./components/pages/CourseLearningPage";
+import CompleteProfile from "./components/complete-profile";
+import PrivateRoute from "./components/PrivateRoute";
+import { Navigate } from "react-router-dom";
+import ForgotPassword from "./components/ForgotPassword";
+
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      const user = JSON.parse(savedUser);
-      dispatch(setUser(user));
-    }
-  }, [dispatch]);
-
-  return (
-    <Router>
-      <AppContent />
-    </Router>
-  );
-}
-
-function AppContent() {
+  const isAuthenticated = !!localStorage.getItem("authToken");
   const location = useLocation();
 
   // Hide Navbar on login & signup pages
@@ -54,21 +46,26 @@ function AppContent() {
     <>
       {isNavbarVisible && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={isAuthenticated ? <Navigate to="/courses" /> : <Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses" element={<PrivateRoute><Courses /></PrivateRoute>} />
         <Route path="/attendance" element={<AttendancePage />} />
         <Route path="/certificate" element={<Certificates />} />
         <Route path="/assessments" element={<Assessments />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/learning" element={<Learning />} />
+        <Route path="/learning" element={<PrivateRoute><Learning /></PrivateRoute>} />
         <Route path="/coursedetails" element={<CourseDetailsPage />} />
         <Route path="/enrolledcoursedetails" element={<EnrolledCoursePage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />
-        <Route path="/explore" element={<ExploreMorePage />} />
+        <Route path="/explore" element={<ExploreMoreMain />} />
+        <Route path="/quiz" element={<QuizPathway />} />
+        <Route path="/pathway" element={<ViewPathway />} />
+        <Route path="/learn" element={<CourseLearningPage />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </>
   );

@@ -1,0 +1,40 @@
+/* src/components/VideoPlayer.css */
+
+.video-container {
+    background: #000;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+  }
+  
+  .video-player {
+    width: 100%;
+    max-height: 400px;
+    border: 2px solid white;
+    border-radius: 10px;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 20px;
+  }
+  
+  .controls button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .quiz-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  

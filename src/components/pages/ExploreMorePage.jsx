@@ -3,7 +3,7 @@ import "../styles/ExploreMorePage.css";
 import { FiFilter, FiSearch } from "react-icons/fi";
 import java from "../../assets/images/explore-thumbnail.png";
 
-export default function ExploreMorePage() {
+export default function ExploreMorePage({ onTakeQuiz }) {
   const [activeTab, setActiveTab] = useState("General");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
@@ -421,7 +421,7 @@ export default function ExploreMorePage() {
               </div>
             </div>
 
-            <button className="btn btn-outline take-quiz-btn">
+            <button className="btn btn-outline take-quiz-btn" onClick={onTakeQuiz}>
               Take the Quiz
             </button>
           </div>

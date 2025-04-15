@@ -1,0 +1,20 @@
+.progress {
+    height: 6px;
+    background-color: #f1f3f5;
+    border-radius: 4px;
+  }
+  
+  .card {
+    border-radius: 12px;
+  }
+  
+  .form-check-input:checked {
+    background-color: #009688;
+    border-color: #009688;
+  }
+.quiz{
+    margin-top: 8rem;
+}  
+.backToExplore{
+    text-decoration: none;
+}

@@ -3,22 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaUser, FaEnvelope, FaLock, FaRedhat } from "react-icons/fa";
-
 import signup from "../assets/images/sign-up.png";
 import ggl_logo from "../assets/icons/google.png";
-import linkedIn_logo from "../assets/icons/linkedin.png";
 import logo from "../assets/icons/logo.png";
 import "../components/styles/signUp.css";
-
-import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../redux/userSlice";
+import { auth, provider } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error, isLoggedIn, username, email, userRole } = useSelector(
-    (state) => state.user
-  );
 
   const [userData, setUserData] = useState({
     name: "",
@@ -26,6 +23,8 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPass: "",
+    date: new Date().toISOString().split('T')[0],
+    status: "active",
     remember: false,
   });
 
@@ -34,24 +33,6 @@ const SignUp = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      if (userData.remember) {
-        localStorage.setItem("userEmail", userData.email);
-      }
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          username,
-          email,
-          userRole,
-        })
-      );
-      alert("Signup successful! Redirecting...");
-      navigate("/courses");
-    }
-  }, [isLoggedIn, username, email, userRole, navigate, userData.email, userData.remember]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -80,11 +61,51 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    dispatch(signupUser(userData));
-    // Don't store anything here — do it in useEffect after signup success
+
+    try {
+      await createUserWithEmailAndPassword(auth, userData.email, userData.password);
+      await axios.post("http://localhost:8080/registration/signup", userData);
+
+      const dummyToken = "user_" + new Date().getTime();
+      localStorage.setItem("authToken", dummyToken);
+      localStorage.setItem("username", userData.name);
+      localStorage.setItem("email", userData.email);
+      alert("User registered successfully!");
+      navigate("/courses");
+    } catch (err) {
+      alert("Registration failed: " + (err.message || "Please try again"));
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const isNewUser = result._tokenResponse?.isNewUser;
+
+      const basicUserData = {
+        name: user.displayName,
+        email: user.email,
+        status: "active",
+        date: new Date(),
+      };
+
+      if (isNewUser) {
+        localStorage.setItem("tempUser", JSON.stringify(basicUserData));
+        navigate("/complete-profile");
+      } else {
+        localStorage.setItem("authToken", "user_" + new Date().getTime());
+        localStorage.setItem("username", user.displayName);
+        localStorage.setItem("email", user.email);
+        alert("Login successful!");
+        navigate("/courses");
+      }
+    } catch (err) {
+      alert("Google Sign-In failed: " + err.message);
+    }
   };
 
   const renderError = (field) =>
@@ -106,23 +127,19 @@ const SignUp = () => {
             Begin Your Journey With SkillWave
           </h2>
 
-          <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-3">
+          <button
+            className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-3"
+            onClick={handleGoogleSignUp}
+          >
             <img src={ggl_logo} alt="Google" className="me-2" width="20" />
             Sign Up with Google
-          </button>
-          <button className="btn btn-light w-100 d-flex align-items-center justify-content-center mt-2">
-            <img src={linkedIn_logo} alt="LinkedIn" className="me-2" width="20" />
-            Sign Up with LinkedIn
           </button>
 
           <p className="text-center fw-bold my-3" data-aos="flip-up">
             OR
           </p>
 
-          {error && <p className="text-danger text-center">{error}</p>}
-
           <form onSubmit={handleSubmit} autoComplete="off">
-            {/* Name */}
             <div className="input-group mb-3">
               <span className="input-group-text"><FaUser /></span>
               <input
@@ -136,7 +153,6 @@ const SignUp = () => {
             </div>
             {renderError("name")}
 
-            {/* Education */}
             <div className="mb-3 d-flex align-items-center">
               <span className="input-group-text"><FaRedhat /></span>
               <select
@@ -155,7 +171,6 @@ const SignUp = () => {
             </div>
             {renderError("education")}
 
-            {/* Email */}
             <div className="input-group mb-3">
               <span className="input-group-text"><FaEnvelope /></span>
               <input
@@ -169,7 +184,6 @@ const SignUp = () => {
             </div>
             {renderError("email")}
 
-            {/* Password */}
             <div className="input-group mb-3">
               <span className="input-group-text"><FaLock /></span>
               <input
@@ -183,7 +197,6 @@ const SignUp = () => {
             </div>
             {renderError("password")}
 
-            {/* Confirm Password */}
             <div className="input-group mb-3">
               <span className="input-group-text"><FaLock /></span>
               <input
@@ -197,7 +210,6 @@ const SignUp = () => {
             </div>
             {renderError("confirmPass")}
 
-            {/* Remember Me */}
             <div className="form-check mb-2">
               <input
                 className="form-check-input"
@@ -209,8 +221,8 @@ const SignUp = () => {
               <label className="form-check-label">Remember me</label>
             </div>
 
-            <button type="submit" className="btn btn-success w-100 mt-3" disabled={loading}>
-              {loading ? "Signing Up..." : "Sign Up"}
+            <button type="submit" className="btn btn-success w-100 mt-3">
+              Sign Up
             </button>
           </form>
 

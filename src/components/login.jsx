@@ -11,28 +11,28 @@ import signup from "../assets/images/sign-up.png";
 import ggl_logo from "../assets/icons/google.png";
 import linkedIn_logo from "../assets/icons/linkedin.png";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { loginUser } from "../redux/userSlice";
+import { auth, provider } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
-    userRole: "",
     remember: false,
   });
+
+  const [resData, setResData] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      navigate("/courses");
-    }
   }, [navigate]);
 
   const handleChange = (e) => {
@@ -56,12 +56,6 @@ const Login = () => {
       setErrorMessage("Password must be at least 6 characters.");
       return false;
     }
-
-    if (!userRole) {
-      setErrorMessage("Please select a user role.");
-      return false;
-    }
-
     setErrorMessage("");
     return true;
   };
@@ -71,30 +65,38 @@ const Login = () => {
     if (!validateForm()) return;
   
     try {
-      // Await the dispatch call to resolve the Promise
-      const resultAction = await dispatch(loginUser(loginData));
+      await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
+      const res = await axios.post("http://localhost:8080/registration/login", loginData);
+      
+      const dummyToken = "user_" + new Date().getTime();
+      localStorage.setItem("authToken", dummyToken);
+      localStorage.setItem("username", res.data.username);  // use res.data directly
+      localStorage.setItem("email", res.data.email);
   
-      // Check if the action was fulfilled
-      if (loginUser.fulfilled.match(resultAction)) {
-        const { username, email, userRole } = resultAction.payload;
-  
-        // Store in localStorage if "Remember Me" is checked
-        if (loginData.remember) {
-          localStorage.setItem("user", JSON.stringify({ username, email, userRole }));
-        }
-  
-        alert("Login Successful!");
-        navigate("/courses");
-      } else {
-        // If login is rejected, show the error message from payload
-        setErrorMessage(resultAction.payload || "Login failed. Please try again.");
-      }
+      alert("User logged in!");
+      navigate('/courses');
     } catch (error) {
       console.error("Login error:", error);
       setErrorMessage("Something went wrong. Please try again.");
+      alert(error);
     }
   };
   
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const dummyToken = "user_" + new Date().getTime();
+      localStorage.setItem("authToken", dummyToken);
+      localStorage.setItem("username", user.displayName);
+      localStorage.setItem("email", user.email);
+      alert(`Logged in as ${user.displayName}`);
+      navigate('/courses')
+    } catch (err) {
+      alert(err.message);
+    }
+  };  
 
   return (
     <>
@@ -114,14 +116,14 @@ const Login = () => {
               <span className="brand">Skill<span className="wave">Wave</span></span>
             </h2>
 
-            <button className="btn btn-light w-100 my-2 d-flex align-items-center justify-content-center" data-aos="fade-up">
+            <button className="btn btn-light w-100 my-2 d-flex align-items-center justify-content-center" data-aos="fade-up" onClick={handleGoogleLogin}>
               <img src={ggl_logo} alt="Google" className="me-2" style={{ width: "20px" }} />
               Login with Google
             </button>
-            <button className="btn btn-light w-100 my-2 d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            {/* <button className="btn btn-light w-100 my-2 d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="200">
               <img src={linkedIn_logo} alt="LinkedIn" className="me-2" style={{ width: "20px" }} />
               Login with LinkedIn
-            </button>
+            </button> */}
 
             <div className="text-center my-3 text-muted" data-aos="flip-up">OR</div>
 
@@ -152,32 +154,6 @@ const Login = () => {
                 />
               </div>
 
-              <div className="d-flex justify-content-center my-3" data-aos="fade-up">
-                <div className="form-check me-3">
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    name="userRole"
-                    value="Teacher"
-                    checked={loginData.userRole === "Teacher"}
-                    onChange={handleChange}
-                    id="role-teacher"
-                  />
-                  <label className="form-check-label" htmlFor="role-teacher">Teacher</label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    name="userRole"
-                    value="Student"
-                    checked={loginData.userRole === "Student"}
-                    onChange={handleChange}
-                    id="role-student"
-                  />
-                  <label className="form-check-label" htmlFor="role-student">Student</label>
-                </div>
-              </div>
 
               <div className="d-flex justify-content-between mb-3" data-aos="fade-up">
                 <label className="form-check-label">

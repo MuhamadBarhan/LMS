@@ -15,7 +15,6 @@ const Courses = () => {
 
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn}/>
       <div className="courses-container">
         <h2 data-aos="fade-down">Your Progress</h2>
         <div className="cards-row" data-aos="fade-up">

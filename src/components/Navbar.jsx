@@ -2,19 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import "../components/styles/Navbar.css";
 import logo from "../assets/icons/logo.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/userSlice";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-    const username = useSelector((state) => state.user.username || "Guest");
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    const username = localStorage.getItem("username");
+    const isLoggedIn = !!localStorage.getItem("authToken");
 
     const dropdownRef = useRef(null);
 
@@ -35,10 +32,11 @@ const Navbar = () => {
     }, []);
 
     const handleLogout = () => {
-        dispatch(logout());
         setMenuOpen(false);
         navigate("/home");
-        localStorage.removeItem("user");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
+        localStorage.removeItem("authToken");
     };
 
     return (
@@ -51,9 +49,9 @@ const Navbar = () => {
 
             <nav className={menuOpen ? "nav-active" : ""}>
                 <ul>
-                    <li><a href="/aboutus">About</a></li>
-                    <li><a href="/courses">Courses</a></li>
-                    <li><a href="/learning">My Learning</a></li>
+                    <li><a onClick={() => navigate("/aboutus")}>About</a></li>
+                    <li><a onClick={() => navigate("/courses")}>Courses</a></li>
+                    <li><a onClick={() => navigate("/learning")}>My Learning</a></li>
                     {isMobile && isLoggedIn && (
                         <>
                             <li><a onClick={() => navigate("/profile")}>My Profile</a></li>
@@ -65,7 +63,7 @@ const Navbar = () => {
                 {!isMobile && isLoggedIn ? (
                     <div className="avatar-container" ref={dropdownRef}>
                         <div className="avatar" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                            {username?.charAt(0).toUpperCase()}
+                        {username ? username.charAt(0).toUpperCase() : "U"}
                         </div>
                         {dropdownOpen && (
                             <div className="dropdown">
