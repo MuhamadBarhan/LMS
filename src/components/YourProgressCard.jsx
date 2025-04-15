@@ -28,10 +28,7 @@ const YourProgressCard = () => {
       }
     ]
   return (
-    <div
-      className="card p-3 shadow-sm border-0 rounded-4 h-100"
-      style={{ minHeight: "100%" }}
-    >
+
     <div className="row g-4">
         {courses.map((course, idx) => (
           <div
@@ -44,7 +41,6 @@ const YourProgressCard = () => {
             <CourseCard {...course} />
           </div>
         ))}
-      </div>
       </div>
   );
 };
