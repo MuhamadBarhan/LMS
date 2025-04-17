@@ -8,14 +8,14 @@ import Assessments from "../Assessments";
 import "../styles/ProfilePage.css"
 import Navbar from "../Navbar";
 
-const Dashboard = () => {
+const Dashboard = ({userDetails}) => {
   const [activeTab, setActiveTab] = useState("attendance"); // Default is Attendance
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <Container className="mt-3">
       <Navbar isLoggedIn = {isLoggedIn} />
-      <ProfileCard />
+      <ProfileCard userDetails={userDetails}/>
       
       {/* Navigation Tabs */}
       <ul className="nav nav-tabs mb-3 mt-3 ">
