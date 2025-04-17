@@ -32,6 +32,7 @@ import CompleteProfile from "./components/complete-profile";
 import PrivateRoute from "./components/PrivateRoute";
 import { Navigate } from "react-router-dom";
 import ForgotPassword from "./components/ForgotPassword";
+import CoursePage from "./components/pages/CoursePage";
 
 
 function App() {
@@ -50,13 +51,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/courses" element={<PrivateRoute><Courses /></PrivateRoute>} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<AttendancePage />} />
         <Route path="/certificate" element={<Certificates />} />
         <Route path="/assessments" element={<Assessments />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/learning" element={<PrivateRoute><Learning /></PrivateRoute>} />
+        <Route path="/learning" element={<Learning />} />
         <Route path="/coursedetails" element={<CourseDetailsPage />} />
         <Route path="/enrolledcoursedetails" element={<EnrolledCoursePage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />
@@ -66,6 +67,7 @@ function App() {
         <Route path="/learn" element={<CourseLearningPage />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/coursepage" element={<CoursePage />} />
       </Routes>
     </>
   );
