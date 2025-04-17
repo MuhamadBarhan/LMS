@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-import { useDispatch } from "react-redux";
-import { setUser } from "./redux/userSlice";
 
 // Components
 import SignUp from "./components/signup";
@@ -38,6 +35,7 @@ import CoursePage from "./components/pages/CoursePage";
 function App() {
   const isAuthenticated = !!localStorage.getItem("authToken");
   const location = useLocation();
+  const [userDetails, setUserDetails] = useState([]);
 
   // Hide Navbar on login & signup pages
   const hideNavbarRoutes = ["/login", "/signup"];
@@ -48,14 +46,14 @@ function App() {
       {isNavbarVisible && <Navbar />}
       <Routes>
         <Route path="/" element={isAuthenticated ? <Navigate to="/courses" /> : <Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUserDetails={setUserDetails}/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<AttendancePage />} />
         <Route path="/certificate" element={<Certificates />} />
         <Route path="/assessments" element={<Assessments />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile userDetails={userDetails}/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/learning" element={<Learning />} />
         <Route path="/coursedetails" element={<CourseDetailsPage />} />
@@ -64,7 +62,6 @@ function App() {
         <Route path="/explore" element={<ExploreMoreMain />} />
         <Route path="/quiz" element={<QuizPathway />} />
         <Route path="/pathway" element={<ViewPathway />} />
-        <Route path="/learn" element={<CourseLearningPage />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/coursepage" element={<CoursePage />} />

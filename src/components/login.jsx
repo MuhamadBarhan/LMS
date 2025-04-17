@@ -18,7 +18,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-const Login = () => {
+const Login = ({setUserDetails}) => {
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -67,10 +67,10 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, loginData.email, loginData.password);
       const res = await axios.post("http://localhost:8080/registration/login", loginData);
-      
+      setUserDetails(res.data);
       const dummyToken = "user_" + new Date().getTime();
       localStorage.setItem("authToken", dummyToken);
-      localStorage.setItem("username", res.data.username);  // use res.data directly
+      localStorage.setItem("username", res.data.name);  // use res.data directly
       localStorage.setItem("email", res.data.email);
   
       alert("User logged in!");

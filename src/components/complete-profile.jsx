@@ -22,7 +22,7 @@ const CompleteProfile = () => {
   };
 
   return (
-    <div className="container py-4">
+    <div className="container py-4" style={{marginTop:"8rem"}}>
       <h3>Complete Your Profile</h3>
       <form onSubmit={handleSubmit}>
         <label>Select Education</label>
