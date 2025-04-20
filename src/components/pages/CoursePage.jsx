@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { CourseProvider } from "../../context/CourseContext";
 import VideoPlayer from "../../components/VideoPlayer";

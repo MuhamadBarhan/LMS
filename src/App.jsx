@@ -24,7 +24,7 @@ import ExploreMorePage from "./components/pages/ExploreMorePage";
 import QuizPathway from "./components/QuizPathway";
 import ExploreMoreMain from "./components/pages/ExploreMoreMain";
 import ViewPathway from "./components/pages/ViewPathway";
-import CourseLearningPage from "./components/pages/CourseLearningPage";
+// import CourseLearningPage from "./components/pages/CourseLearningPage";
 import CompleteProfile from "./components/complete-profile";
 import PrivateRoute from "./components/PrivateRoute";
 import { Navigate } from "react-router-dom";
