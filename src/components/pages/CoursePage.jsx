@@ -6,8 +6,6 @@ import AttendanceCalendar from "../../components/AttendanceCalendar";
 import AssessmentModal from "../../components/AssessmentModal";
 import AITutor from "../../components/AITutor";
 import { useCourse } from "../../context/CourseContext";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import { 
   GraduationCap, 
   CalendarDays, 
@@ -24,15 +22,11 @@ import {
   Star,
   ThumbsUp
 } from "lucide-react";
-import { Badge } from "../../components/ui/badge";
-import { format, parseISO } from "date-fns";
-import { cn } from "../../lib/utils";
-import { Button } from "../../components/ui/button";
 import BreadcrumbNav from "../../components/BreadcrumbNav";
 import ResourceCategorized from "../../components/ResourceCategorized";
 import LearningObjectives from "../../components/LearningObjectives";
 import DiscussionSection from "../../components/DiscussionSection";
-import { Textarea } from "../../components/ui/textarea";
+import { format, parseISO } from "date-fns";
 
 const NotesPanel = () => {
   const { currentLesson, isNotesOpen, progress, addNote, updateNote, deleteNote } = useCourse();
@@ -67,77 +61,83 @@ const NotesPanel = () => {
   };
   
   return (
-    <Card className="mt-4">
-      <CardHeader>
-        <CardTitle className="text-lg">Notes</CardTitle>
-        <CardDescription>
+    <div className="card mt-4 border-0 shadow-sm">
+      <div className="card-header bg-white border-bottom-0 pb-0">
+        <h5 className="card-title mb-1">My Notes</h5>
+        <p className="card-text text-muted small">
           Add personal notes for this lesson
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Textarea
-              value={noteContent}
-              onChange={(e) => setNoteContent(e.target.value)}
-              placeholder="Add a note about this lesson..."
-              className="w-full min-h-[100px] p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <div className="flex justify-end">
-              {editing ? (
-                <div className="space-x-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => {
-                      setNoteContent('');
-                      setEditing(false);
-                      setCurrentEditingNote(null);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    size="sm"
-                    onClick={() => currentEditingNote && handleUpdateNote(currentEditingNote)}
-                  >
-                    Save Changes
-                  </Button>
-                </div>
-              ) : (
-                <Button size="sm" onClick={handleAddNote}>
-                  Add Note
-                </Button>
-              )}
-            </div>
+        </p>
+      </div>
+      <div className="card-body pt-0">
+        <div className="mb-3">
+          <textarea
+            value={noteContent}
+            onChange={(e) => setNoteContent(e.target.value)}
+            placeholder="Add a note about this lesson..."
+            className="form-control mb-2"
+            rows="4"
+          />
+          <div className="d-flex justify-content-end">
+            {editing ? (
+              <div className="btn-group">
+                <button 
+                  className="btn btn-outline-secondary btn-sm"
+                  onClick={() => {
+                    setNoteContent('');
+                    setEditing(false);
+                    setCurrentEditingNote(null);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="btn btn-primary btn-sm"
+                  onClick={() => currentEditingNote && handleUpdateNote(currentEditingNote)}
+                >
+                  Save Changes
+                </button>
+              </div>
+            ) : (
+              <button className="btn btn-primary btn-sm" onClick={handleAddNote}>
+                Add Note
+              </button>
+            )}
           </div>
-          
-          {lessonNotes.length > 0 && (
-            <div className="space-y-3 mt-4">
-              <h3 className="font-medium">Your Notes</h3>
-              {lessonNotes.map((note) => (
-                <div key={note.id} className="p-3 border rounded-md bg-gray-50 dark:bg-gray-800">
-                  <p className="text-sm">{note.content}</p>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
+        </div>
+        
+        {lessonNotes.length > 0 && (
+          <div className="mt-3">
+            <h6 className="text-muted mb-2">Your Notes</h6>
+            {lessonNotes.map((note) => (
+              <div key={note.id} className="card mb-2 border">
+                <div className="card-body p-3">
+                  <p className="card-text small mb-2">{note.content}</p>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <small className="text-muted">
                       {format(parseISO(note.updatedAt), 'MMM d, yyyy h:mm a')}
-                    </span>
-                    <div className="space-x-2">
-                      <Button variant="ghost" size="sm" onClick={() => startEditing(note)}>
+                    </small>
+                    <div>
+                      <button 
+                        className="btn btn-sm btn-link text-primary p-0 me-2"
+                        onClick={() => startEditing(note)}
+                      >
                         Edit
-                      </Button>
-                      <Button variant="ghost" size="sm" onClick={() => deleteNote(note.id)}>
+                      </button>
+                      <button 
+                        className="btn btn-sm btn-link text-danger p-0"
+                        onClick={() => deleteNote(note.id)}
+                      >
                         Delete
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
@@ -169,151 +169,165 @@ const QuestionSection = () => {
   };
   
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="font-medium flex items-center">
-          <MessageSquare size={18} className="mr-2" />
+    <div className="mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h5 className="mb-0 d-flex align-items-center">
+          <MessageSquare className="text-primary me-2" size={18} />
           Questions & Answers
-        </h3>
-        <Button 
-          size="sm" 
+        </h5>
+        <button 
+          className="btn btn-primary btn-sm"
           onClick={() => setShowNewQuestion(!showNewQuestion)}
         >
           Ask a Question
-        </Button>
+        </button>
       </div>
       
       {showNewQuestion && (
-        <Card className="p-4">
-          <Textarea
-            placeholder="What's your question about this lesson?"
-            value={newQuestionText}
-            onChange={(e) => setNewQuestionText(e.target.value)}
-            className="min-h-[100px] mb-2"
-          />
-          <div className="flex justify-end space-x-2">
-            <Button variant="outline" size="sm" onClick={() => setShowNewQuestion(false)}>
-              Cancel
-            </Button>
-            <Button size="sm" onClick={handleSubmitQuestion} disabled={!newQuestionText.trim()}>
-              Submit Question
-            </Button>
+        <div className="card mb-3 border-0 shadow-sm">
+          <div className="card-body">
+            <textarea
+              placeholder="What's your question about this lesson?"
+              value={newQuestionText}
+              onChange={(e) => setNewQuestionText(e.target.value)}
+              className="form-control mb-2"
+              rows="3"
+            />
+            <div className="d-flex justify-content-end gap-2">
+              <button 
+                className="btn btn-outline-secondary btn-sm"
+                onClick={() => setShowNewQuestion(false)}
+              >
+                Cancel
+              </button>
+              <button 
+                className="btn btn-primary btn-sm"
+                onClick={handleSubmitQuestion}
+                disabled={!newQuestionText.trim()}
+              >
+                Submit Question
+              </button>
+            </div>
           </div>
-        </Card>
+        </div>
       )}
       
       {lessonQuestions.length === 0 ? (
-        <p className="text-sm text-gray-500 p-4 bg-gray-50 dark:bg-gray-800 rounded-md">
-          No questions for this lesson yet. Ask a question to get help from instructors and peers.
-        </p>
+        <div className="card border-0 bg-light">
+          <div className="card-body text-center py-4">
+            <p className="text-muted mb-0">
+              No questions for this lesson yet. Ask a question to get help from instructors and peers.
+            </p>
+          </div>
+        </div>
       ) : (
-        <div className="space-y-3">
+        <div className="gap-3 d-flex flex-column">
           {lessonQuestions.map(question => (
-            <Card key={question.id}>
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-3">
-                  <div>
-                    <Badge variant={question.resolved ? "default" : "outline"}>
-                      {question.resolved ? "Resolved" : "Open"}
-                    </Badge>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-gray-500 space-x-2">
-                        <span>{question.userName}</span>
-                        <span>•</span>
-                        <span>{format(parseISO(question.createdAt), 'MMM d, yyyy')}</span>
-                      </div>
-                      
-                      <button 
-                        className="flex items-center text-sm text-gray-500 hover:text-gray-700"
-                        onClick={() => upvoteQuestion(question.id)}
-                      >
-                        <ThumbsUp size={14} className="mr-1" />
-                        <span>{question.upvotes}</span>
-                      </button>
+            <div key={question.id} className="card border-0 shadow-sm">
+              <div className="card-body p-0">
+                <div className="p-3 pb-2">
+                  <div className="d-flex gap-3">
+                    <div className="flex-shrink-0 pt-1">
+                      <span className={`badge ${question.resolved ? 'bg-success' : 'bg-secondary'}`}>
+                        {question.resolved ? "Resolved" : "Open"}
+                      </span>
                     </div>
                     
-                    <p className="mt-1">{question.content}</p>
-                    
-                    <div className="mt-3 space-y-3">
-                      {question.answers && question.answers.map(answer => (
-                        <div 
-                          key={answer.id} 
-                          className={cn(
-                            "p-3 rounded-md",
-                            answer.isInstructor 
-                              ? "bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-800" 
-                              : "bg-gray-50 dark:bg-gray-800"
-                          )}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center text-sm text-gray-500 space-x-2">
-                              <span>{answer.userName}</span>
-                              {answer.isInstructor && (
-                                <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
-                                  Instructor
-                                </Badge>
-                              )}
-                              <span>•</span>
-                              <span>{format(parseISO(answer.createdAt), 'MMM d, yyyy')}</span>
-                            </div>
-                            
-                            <button 
-                              className="flex items-center text-sm text-gray-500 hover:text-gray-700"
-                              onClick={() => upvoteAnswer(question.id, answer.id)}
-                            >
-                              <ThumbsUp size={14} className="mr-1" />
-                              <span>{answer.upvotes}</span>
-                            </button>
-                          </div>
-                          <p className="mt-1 text-sm">{answer.content}</p>
+                    <div className="flex-grow-1">
+                      <div className="d-flex justify-content-between mb-1">
+                        <div className="d-flex align-items-center text-muted small gap-2">
+                          <span className="fw-medium text-dark">{question.userName}</span>
+                          <span>•</span>
+                          <span>{format(parseISO(question.createdAt), 'MMM d, yyyy')}</span>
                         </div>
-                      ))}
+                        
+                        <button 
+                          className="btn btn-sm btn-link text-muted p-0"
+                          onClick={() => upvoteQuestion(question.id)}
+                        >
+                          <ThumbsUp size={14} className="me-1" />
+                          {question.upvotes}
+                        </button>
+                      </div>
                       
-                      {replyingToId === question.id ? (
-                        <div className="mt-2 space-y-2">
-                          <Textarea
-                            placeholder="Write your answer..."
-                            value={answerText}
-                            onChange={(e) => setAnswerText(e.target.value)}
-                            className="text-sm min-h-[80px]"
-                          />
-                          <div className="flex justify-end space-x-2">
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              onClick={() => {
-                                setReplyingToId(null);
-                                setAnswerText('');
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              onClick={() => handleSubmitAnswer(question.id)}
-                              disabled={!answerText.trim()}
-                            >
-                              Post Answer
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => setReplyingToId(question.id)}
-                        >
-                          Answer
-                        </Button>
-                      )}
+                      <p className="mb-2">{question.content}</p>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+                
+                <div className="border-top p-3 bg-light">
+                  <div className="d-flex flex-column gap-3">
+                    {question.answers && question.answers.map(answer => (
+                      <div 
+                        key={answer.id} 
+                        className={`card ${answer.isInstructor ? 'border-primary bg-primary-light' : 'border-light'}`}
+                      >
+                        <div className="card-body p-3">
+                          <div className="d-flex justify-content-between mb-2">
+                            <div className="d-flex align-items-center small gap-2">
+                              <span className="fw-medium">{answer.userName}</span>
+                              {answer.isInstructor && (
+                                <span className="badge bg-primary">Instructor</span>
+                              )}
+                              <span className="text-muted">•</span>
+                              <span className="text-muted">
+                                {format(parseISO(answer.createdAt), 'MMM d, yyyy')}
+                              </span>
+                            </div>
+                            
+                            <button 
+                              className="btn btn-sm btn-link text-muted p-0"
+                              onClick={() => upvoteAnswer(question.id, answer.id)}
+                            >
+                              <ThumbsUp size={14} className="me-1" />
+                              {answer.upvotes}
+                            </button>
+                          </div>
+                          <p className="mb-0 small">{answer.content}</p>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {replyingToId === question.id ? (
+                      <div className="mt-2">
+                        <textarea
+                          placeholder="Write your answer..."
+                          value={answerText}
+                          onChange={(e) => setAnswerText(e.target.value)}
+                          className="form-control mb-2 small"
+                          rows="3"
+                        />
+                        <div className="d-flex justify-content-end gap-2">
+                          <button 
+                            className="btn btn-outline-secondary btn-sm"
+                            onClick={() => {
+                              setReplyingToId(null);
+                              setAnswerText('');
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button 
+                            className="btn btn-primary btn-sm"
+                            onClick={() => handleSubmitAnswer(question.id)}
+                            disabled={!answerText.trim()}
+                          >
+                            Post Answer
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button 
+                        className="btn btn-outline-secondary btn-sm align-self-start"
+                        onClick={() => setReplyingToId(question.id)}
+                      >
+                        Answer
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}
@@ -329,8 +343,6 @@ const CourseContent = () => {
     assessments, 
     courseMetadata,
     progress,
-    discussions,
-    questions,
     isResourcesOpen,
     isNotesOpen,
     toggleBookmark,
@@ -339,301 +351,345 @@ const CourseContent = () => {
   } = useCourse();
   
   return (
-    <div className="container mx-auto px-4 py-8">
-      <BreadcrumbNav />
-      
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="w-full md:w-2/3 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <h1 className="text-2xl md:text-3xl font-bold">
-              {currentModule?.title || "Course Content"}
-            </h1>
-            
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-200 flex items-center gap-1">
-                <Calendar size={14} className="mr-1" />
-                <span>
+    <div className="bg-light min-vh-100">
+      <div className="container py-4">
+        <BreadcrumbNav />
+        
+        <div className="row g-4">
+          <div className="col-lg-8">
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+              <div>
+                <h1 className="h2 mb-1">
+                  {currentModule?.title || "Course Content"}
+                </h1>
+                {currentModule?.description && (
+                  <p className="text-muted mb-0 small">
+                    {currentModule.description}
+                  </p>
+                )}
+              </div>
+              
+              <div className="d-flex flex-wrap gap-2">
+                <span className="badge bg-primary bg-opacity-10 text-primary d-flex align-items-center">
+                  <Calendar size={14} className="me-1" />
                   {courseMetadata.startDate && format(parseISO(courseMetadata.startDate), 'MMM d')} - 
                   {courseMetadata.endDate && format(parseISO(courseMetadata.endDate), 'MMM d, yyyy')}
                 </span>
-              </Badge>
-              
-              <Badge variant="outline" className="bg-green-50 text-green-700 dark:bg-green-900 dark:text-green-200">
-                {courseMetadata.skillLevel.charAt(0).toUpperCase() + courseMetadata.skillLevel.slice(1)}
-              </Badge>
-            </div>
-          </div>
-          
-          {currentLesson && (
-            <div className="space-y-2">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="text-xl font-semibold">{currentLesson.title}</h2>
-                  <div className="flex items-center space-x-2 mt-1">
-                    {currentLesson.completed && (
-                      <Badge variant="outline" className="bg-green-100 text-green-800 flex items-center">
-                        <CheckSquare size={12} className="mr-1" />
-                        Completed
-                      </Badge>
-                    )}
-                    {currentLesson.hasAssessment && (
-                      <Badge className="bg-primary/20 text-primary">
-                        Assessment Available
-                      </Badge>
-                    )}
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="flex items-center p-1 h-auto"
-                      onClick={() => toggleBookmark(currentLesson.id)}
-                    >
-                      <Bookmark 
-                        size={16} 
-                        className={cn(
-                          isBookmarked(currentLesson.id) 
-                            ? "fill-yellow-400 text-yellow-400" 
-                            : "text-gray-400 hover:text-yellow-400"
-                        )} 
-                      />
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex items-center text-sm text-gray-500">
-                  <Clock size={14} className="mr-1" />
-                  {Math.floor(currentLesson.duration / 60)} min
-                </div>
+                
+                <span className="badge bg-success bg-opacity-10 text-success">
+                  {courseMetadata.skillLevel.charAt(0).toUpperCase() + courseMetadata.skillLevel.slice(1)}
+                </span>
               </div>
             </div>
-          )}
-          
-          <VideoPlayer />
-          
-          {currentLesson && currentLesson.description && (
-            <LearningObjectives />
-          )}
-          
-          {isResourcesOpen && <ResourceCategorized />}
-          {isNotesOpen && <NotesPanel />}
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Course Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="modules">
-                <TabsList className="grid grid-cols-3 sm:grid-cols-5 mb-4">
-                  <TabsTrigger value="modules" className="flex items-center">
-                    <BookOpen size={16} className="mr-2" />
-                    <span>Modules</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="assessments" className="flex items-center">
-                    <ListChecks size={16} className="mr-2" />
-                    <span>Assessments</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="progress" className="flex items-center">
-                    <GraduationCap size={16} className="mr-2" />
-                    <span>Progress</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="discussions" className="flex items-center">
-                    <Users size={16} className="mr-2" />
-                    <span>Discussions</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="qa" className="flex items-center">
-                    <MessageSquare size={16} className="mr-2" />
-                    <span>Q&A</span>
-                  </TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="modules">
-                  <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                    <h3 className="font-medium mb-2">About This Course</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {courseMetadata.description}
-                    </p>
-                    
-                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Prerequisites</h4>
-                        <ul className="text-sm list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300">
-                          {courseMetadata.prerequisites.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div>
-                        <h4 className="text-sm font-medium mb-2">Target Audience</h4>
-                        <ul className="text-sm list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300">
-                          {courseMetadata.targetAudience.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4">
-                      <h4 className="text-sm font-medium mb-2">Instructor</h4>
-                      <div className="flex items-center space-x-3">
-                        <img 
-                          src={courseMetadata.instructorImage} 
-                          alt={courseMetadata.instructorName}
-                          className="w-10 h-10 rounded-full"
+            
+            {currentLesson && (
+              <div className="mb-4">
+                <div className="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <h2 className="h4 mb-1">{currentLesson.title}</h2>
+                    <div className="d-flex align-items-center gap-2">
+                      {currentLesson.completed && (
+                        <span className="badge bg-success bg-opacity-10 text-success d-flex align-items-center">
+                          <CheckSquare size={12} className="me-1" />
+                          Completed
+                        </span>
+                      )}
+                      {currentLesson.hasAssessment && (
+                        <span className="badge bg-info bg-opacity-10 text-info">
+                          Assessment Available
+                        </span>
+                      )}
+                      <button 
+                        className="btn btn-sm btn-link p-0"
+                        onClick={() => toggleBookmark(currentLesson.id)}
+                      >
+                        <Bookmark 
+                          size={16} 
+                          className={isBookmarked(currentLesson.id) ? "text-warning fill-warning" : "text-muted"} 
                         />
-                        <div>
-                          <h5 className="font-medium">{courseMetadata.instructorName}</h5>
-                          <p className="text-xs text-gray-600 dark:text-gray-300">
-                            {courseMetadata.instructorBio}
-                          </p>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center text-muted small">
+                    <Clock size={14} className="me-1" />
+                    {Math.floor(currentLesson.duration / 60)} min
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <VideoPlayer />
+            
+            {currentLesson && currentLesson.description && (
+              <LearningObjectives />
+            )}
+            
+            {isResourcesOpen && <ResourceCategorized />}
+            {isNotesOpen && <NotesPanel />}
+            
+            <div className="card border-0 shadow-sm mb-4">
+              <div className="card-header bg-white border-0">
+                <h3 className="h5 mb-0">Course Information</h3>
+              </div>
+              <div className="card-body">
+                <ul className="nav nav-tabs mb-4" id="courseTabs" role="tablist">
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link active"
+                      id="modules-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#modules"
+                      type="button"
+                      role="tab"
+                    >
+                      <BookOpen size={16} className="me-1" />
+                      Modules
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="assessments-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#assessments"
+                      type="button"
+                      role="tab"
+                    >
+                      <ListChecks size={16} className="me-1" />
+                      Assessments
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="progress-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#progress"
+                      type="button"
+                      role="tab"
+                    >
+                      <GraduationCap size={16} className="me-1" />
+                      Progress
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="discussions-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#discussions"
+                      type="button"
+                      role="tab"
+                    >
+                      <Users size={16} className="me-1" />
+                      Discussions
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="qa-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#qa"
+                      type="button"
+                      role="tab"
+                    >
+                      <MessageSquare size={16} className="me-1" />
+                      Q&A
+                    </button>
+                  </li>
+                </ul>
+                
+                <div className="tab-content" id="courseTabsContent">
+                  <div className="tab-pane fade show active" id="modules" role="tabpanel">
+                    <div className="card border-0 bg-light">
+                      <div className="card-body">
+                        <h4 className="h6 mb-3">About This Course</h4>
+                        <p className="small text-muted mb-4">
+                          {courseMetadata.description}
+                        </p>
+                        
+                        <div className="row">
+                          <div className="col-md-6 mb-3 mb-md-0">
+                            <h5 className="h6 mb-2">Prerequisites</h5>
+                            <ul className="small text-muted ps-3">
+                              {courseMetadata.prerequisites.map((item, index) => (
+                                <li key={index}>{item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="col-md-6">
+                            <h5 className="h6 mb-2">Target Audience</h5>
+                            <ul className="small text-muted ps-3">
+                              {courseMetadata.targetAudience.map((item, index) => (
+                                <li key={index}>{item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-4">
+                          <h5 className="h6 mb-2">Instructor</h5>
+                          <div className="d-flex align-items-center gap-3 p-3 bg-white rounded">
+                            <img 
+                              src={courseMetadata.instructorImage} 
+                              alt={courseMetadata.instructorName}
+                              className="rounded-circle"
+                              width="40"
+                              height="40"
+                            />
+                            <div>
+                              <h6 className="mb-0">{courseMetadata.instructorName}</h6>
+                              <p className="small text-muted mb-0">
+                                {courseMetadata.instructorBio}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="assessments">
-                  <div className="space-y-4">
-                    <p className="text-sm">
-                      Complete each lesson's assessment to progress through the course. 
-                      A passing score of 80% or higher is required to mark a lesson as complete and move to the next lesson.
-                    </p>
+                  
+                  <div className="tab-pane fade" id="assessments" role="tabpanel">
+                    <div className="mb-3">
+                      <p className="small text-muted">
+                        Complete each lesson's assessment to progress through the course. 
+                        A passing score of 80% or higher is required to mark a lesson as complete.
+                      </p>
+                    </div>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="row g-3">
                       {assessments.map(assessment => {
                         const result = progress.assessmentResults[assessment.id];
                         
                         return (
-                          <Card key={assessment.id} className="overflow-hidden">
-                            <div className={`h-1 ${result?.completed ? (result.score >= 80 ? 'bg-green-500' : 'bg-red-500') : 'bg-gray-300'}`}></div>
-                            <CardContent className="p-3">
-                              <div className="flex justify-between items-start">
-                                <div>
-                                  <h4 className="font-medium text-sm">{assessment.title}</h4>
-                                  <div className="flex items-center mt-1 space-x-2">
-                                    <Badge variant="outline" className="text-xs bg-gray-100 dark:bg-gray-800 flex items-center gap-1">
-                                      <Calendar size={12} />
-                                      <span>Due {format(parseISO(assessment.dueDate), 'MMM d')}</span>
-                                    </Badge>
-                                    
-                                    <span className="text-xs text-gray-500">
-                                      {assessment.questions.length} questions
-                                    </span>
+                          <div key={assessment.id} className="col-md-6">
+                            <div className="card border-0 shadow-sm h-100">
+                              <div className={`card-top-border ${result?.completed ? (result.score >= 80 ? 'bg-success' : 'bg-danger') : 'bg-secondary'}`}></div>
+                              <div className="card-body">
+                                <div className="d-flex justify-content-between">
+                                  <div>
+                                    <h5 className="h6 mb-1">{assessment.title}</h5>
+                                    <div className="d-flex align-items-center gap-2 small text-muted">
+                                      <span className="badge bg-light text-dark">
+                                        <Calendar size={12} className="me-1" />
+                                        Due {format(parseISO(assessment.dueDate), 'MMM d')}
+                                      </span>
+                                      <span>{assessment.questions.length} questions</span>
+                                    </div>
                                   </div>
+                                  
+                                  {result?.completed && (
+                                    <span className={`badge ${result.score >= 80 ? 'bg-success' : 'bg-danger'}`}>
+                                      {result.score}%
+                                    </span>
+                                  )}
                                 </div>
-                                
-                                {result?.completed && (
-                                  <Badge 
-                                    className={
-                                      result.score >= 80 
-                                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                                        : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
-                                    }
-                                  >
-                                    {result.score}%
-                                  </Badge>
-                                )}
                               </div>
-                            </CardContent>
-                          </Card>
+                            </div>
+                          </div>
                         );
                       })}
                     </div>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="progress">
-                  <div className="space-y-4">
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-                      <h3 className="font-medium mb-2">Your Progress</h3>
-                      
-                      {currentModule && (
-                        <div className="space-y-3">
-                          <div>
-                            <p className="text-sm font-medium mb-1">Current Module</p>
-                            <div className="progress-bar">
-                              <div 
-                                className="progress-bar-fill" 
-                                style={{ 
-                                  width: `${currentModule.lessons.filter(l => progress.completedLessons.includes(l.id)).length / currentModule.lessons.length * 100}%` 
-                                }}
-                              ></div>
+                  
+                  <div className="tab-pane fade" id="progress" role="tabpanel">
+                    <div className="card border-0 bg-light">
+                      <div className="card-body">
+                        <h4 className="h6 mb-3">Your Progress</h4>
+                        
+                        {currentModule && (
+                          <div className="mb-4">
+                            <div className="mb-3">
+                              <div className="d-flex justify-content-between mb-1 small">
+                                <span>Current Module</span>
+                                <span>
+                                  {currentModule.lessons.filter(l => progress.completedLessons.includes(l.id)).length}/{currentModule.lessons.length} lessons
+                                </span>
+                              </div>
+                              <div className="progress" style={{ height: '6px' }}>
+                                <div 
+                                  className="progress-bar bg-primary" 
+                                  style={{ 
+                                    width: `${currentModule.lessons.filter(l => progress.completedLessons.includes(l.id)).length / currentModule.lessons.length * 100}%` 
+                                  }}
+                                ></div>
+                              </div>
                             </div>
-                            <p className="text-xs text-right mt-1">
-                              {currentModule.lessons.filter(l => progress.completedLessons.includes(l.id)).length}/{currentModule.lessons.length} lessons
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium mb-1">Overall Progress</p>
-                            <div className="progress-bar">
-                              <div 
-                                className="progress-bar-fill" 
-                                style={{ 
-                                  width: `${progress.completedLessons.length / coursesModules.flatMap(m => m.lessons).length * 100}%` 
-                                }}
-                              ></div>
-                            </div>
-                            <p className="text-xs text-right mt-1">
-                              {progress.completedLessons.length}/{coursesModules.flatMap(m => m.lessons).length} lessons
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {courseMetadata.certificateAvailable && (
-                        <div className="mt-4 p-3 border border-dashed rounded-md flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <Award size={24} className="text-yellow-500" />
+                            
                             <div>
-                              <h4 className="font-medium">Course Certificate</h4>
-                              <p className="text-xs text-gray-600 dark:text-gray-300">
-                                Complete all lessons to earn your certificate
-                              </p>
+                              <div className="d-flex justify-content-between mb-1 small">
+                                <span>Overall Progress</span>
+                                <span>
+                                  {progress.completedLessons.length}/{coursesModules.flatMap(m => m.lessons).length} lessons
+                                </span>
+                              </div>
+                              <div className="progress" style={{ height: '6px' }}>
+                                <div 
+                                  className="progress-bar bg-primary" 
+                                  style={{ 
+                                    width: `${progress.completedLessons.length / coursesModules.flatMap(m => m.lessons).length * 100}%` 
+                                  }}
+                                ></div>
+                              </div>
                             </div>
                           </div>
-                          
-                          <Button 
-                            variant="outline"
-                            disabled={progress.completedLessons.length < coursesModules.flatMap(m => m.lessons).length}
-                            onClick={downloadCertificate}
-                          >
-                            {progress.completedLessons.length < coursesModules.flatMap(m => m.lessons).length
-                              ? `${coursesModules.flatMap(m => m.lessons).length - progress.completedLessons.length} lessons left`
-                              : "Download Certificate"
-                            }
-                          </Button>
-                        </div>
-                      )}
+                        )}
+                        
+                        {courseMetadata.certificateAvailable && (
+                          <div className="d-flex align-items-center justify-content-between p-3 bg-white border rounded">
+                            <div className="d-flex align-items-center gap-3">
+                              <Award size={24} className="text-primary" />
+                              <div>
+                                <h5 className="h6 mb-0">Course Certificate</h5>
+                                <p className="small text-muted mb-0">
+                                  Complete all lessons to earn your certificate
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <button 
+                              className="btn btn-outline-primary btn-sm"
+                              disabled={progress.completedLessons.length < coursesModules.flatMap(m => m.lessons).length}
+                              onClick={downloadCertificate}
+                            >
+                              {progress.completedLessons.length < coursesModules.flatMap(m => m.lessons).length
+                                ? `${coursesModules.flatMap(m => m.lessons).length - progress.completedLessons.length} lessons left`
+                                : "Download Certificate"
+                              }
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </TabsContent>
-                
-                <TabsContent value="discussions">
-                  <DiscussionSection />
-                </TabsContent>
-                
-                <TabsContent value="qa">
-                  <QuestionSection />
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="w-full md:w-1/3 space-y-6">
-          <div className="hidden md:block">
-            <div className="flex items-center mb-4">
-              <CalendarDays size={20} className="mr-2" />
-              <h2 className="text-xl font-bold">My Learning</h2>
+                  
+                  <div className="tab-pane fade" id="discussions" role="tabpanel">
+                    <DiscussionSection />
+                  </div>
+                  
+                  <div className="tab-pane fade" id="qa" role="tabpanel">
+                    <QuestionSection />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           
-          <ModuleList />
-          <AttendanceCalendar />
+          <div className="col-lg-4">
+            <div className="d-none d-lg-flex align-items-center mb-3">
+              <CalendarDays size={20} className="text-primary me-2" />
+              <h3 className="h5 mb-0">My Learning</h3>
+            </div>
+            
+            <ModuleList />
+            <AttendanceCalendar />
+          </div>
         </div>
+        
+        <AssessmentModal />
+        <AITutor />
       </div>
-      
-      <AssessmentModal />
-      <AITutor />
     </div>
   );
 };

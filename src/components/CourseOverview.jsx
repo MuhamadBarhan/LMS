@@ -1,11 +1,12 @@
 import React from "react";
 import {
-  CheckCircle,
-  StarFill,
-  BoxArrowUpRight,
-  Clock,
-  Calendar,
-} from "react-bootstrap-icons";
+  BsCheckCircle,
+  BsStarFill,
+  BsBoxArrowUpRight,
+  BsClock,
+  BsCalendar,
+} from "react-icons/bs";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/CourseOverview.css";
 import avatar from "../assets/images/avatar.png";

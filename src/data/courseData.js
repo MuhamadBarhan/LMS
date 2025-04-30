@@ -34,7 +34,7 @@ export const courseModules = [
         id: "lesson-1-1",
         title: "HTML Fundamentals",
         description: "Understanding the building blocks of the web",
-        videoUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+        videoUrl: "abc.mp4",
         duration: 600, // 10 minutes
         completed: false,
         hasAssessment: true,
